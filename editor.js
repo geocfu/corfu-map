@@ -15,7 +15,7 @@ function init() {
         mapTypeId: 'satellite'
     });
 
-    map.data.setControls(['Point', 'LineString', 'Polygon']);
+    map.data.setControls(['Point', 'LineString', 'Polygon', 'Test']);
     map.data.setStyle({
         editable: true,
         draggable: true,
@@ -47,7 +47,7 @@ function refreshDownloadLinkFromGeoJson() {
 
 // Apply listeners to refresh the GeoJson display on a given data layer.
 function bindDataLayerListeners(dataLayer) {
-    dataLayer.addListener('addfeature', refreshGeoJsonFromData);
+    dataLayer.addListener('', refreshGeoJsonFromData);
     dataLayer.addListener('removefeature', refreshGeoJsonFromData);
     dataLayer.addListener('setgeometry', refreshGeoJsonFromData);
 }
