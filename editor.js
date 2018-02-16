@@ -15,7 +15,7 @@ function init() {
         mapTypeId: 'satellite'
     });
 
-    map.data.setControls(['Point', 'LineString', 'Polygon', 'Test']);
+    map.data.setControls(['Point', 'LineString', 'Polygon']);
     map.data.setStyle({
         editable: true,
         draggable: true,
