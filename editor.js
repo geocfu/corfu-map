@@ -13,7 +13,6 @@ function init() {
         streetViewControl: false,
         fullscreenControl: false,
         mapTypeId: 'satellite'
-        //test
     });
 
     map.data.setControls(['Point', 'LineString', 'Polygon']);
