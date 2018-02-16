@@ -5,15 +5,15 @@ var geoJsonOutput;
 var downloadLink;
 
 function init() {
-	  // Initialise the map.
-	  map = new google.maps.Map(document.getElementById('map-holder'), {
-		center: {lat: 39.6218916, lng: 19.9170849},
-		zoom: 15,
-		mapTypeControl: false,
-		streetViewControl: false,
-		fullscreenControl: false,
-		mapTypeId: 'satellite'
-  	});
+    // Initialise the map.
+    map = new google.maps.Map(document.getElementById('map-holder'), {
+        center: {lat: 39.6218916, lng: 19.9170849},
+        zoom: 15,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false,
+        mapTypeId: 'satellite'
+});
 	
   map.data.setControls(['Point', 'LineString', 'Polygon']);
   map.data.setStyle({
