@@ -1,37 +1,64 @@
 html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: "Arial", "Helvetica", sans-serif;
-  color: #222;
-  font-size: 13px;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  overflow-y: auto;
+    font-family: "Arial", "Helvetica", sans-serif;
+    color: #222;
+    font-size: 13px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    overflow-y: auto;
 }
 
 /* Map styles. */
 #map-holder {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 70%;
 }
 
 #geojson-output {
-  width: 100%;
-  -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
-  -moz-box-sizing: border-box; /* FF1+ */
-  box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
-  border: none;
-  resize: none;
-  background-color: #F1F1F1;
-  display: none;
+    position: absolute;
+    top: 100px;
+    right: 48px;
+    margin: auto;
+    height: 25%;
+    width: 25%;
+    -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
+    -moz-box-sizing: border-box; /* FF1+ */
+    box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
+    resize: none;
+    background-color: #F1F1F1;
+    display: block;
 }
+
 #download-link {
-  position: absolute;
-  top:10px;
-  right:10px;
-  z-index:100;
+    position: absolute;
+    top: 50px;
+    right: 300px;
+    z-index: 100;
+}
+
+#output-toggle {
+    position: absolute;
+    top: 50px;
+    right: 120px;
+    z-index: 100;
+}
+#removeAllLines {
+    position: absolute;
+    top: 350px;
+    right: 313px;
+    z-index: 100;
+}
+
+#populate {
+    display: none;
+}
+
+.z-depth-1 {
+    -webkit-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
 }
