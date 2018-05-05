@@ -4,21 +4,48 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
         <title>Corfu Map Editor</title>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-CmjQQcI71kuW7qyZLCLTzOT1xl9jd20&libraries=geometry"></script>
         <link href="styles.css" title="compact" rel="stylesheet" type="text/css">
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-CmjQQcI71kuW7qyZLCLTzOT1xl9jd20"></script>
-        <script src="editor.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
     </head>
     <body>
+        <div id="login_div">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-group">
+                            <div class="card z-depth-1 bd-callout bd-callout-success">
+                                <h1 class="h3 mb-3 font-weight-normal text-center">Corfu Maps Log-in</h1>
+                                <br>
+                                <input type="email" for="email" id="email" class="form-control" placeholder="Email address" required autofocus>
+                                <br>
+                                <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
+                                <br><br>
+                                <button class="btn btn-lg btn-success btn-block" onclick="login()">Log-in</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="javascript:geojsonOutput()">GeoJson output</a>
+            <a href="data:;base64," download="geojson.geojson" id="download-link">Download GeoJson</a>
+            <a href="javascript:removeAllPaths()">Delete all paths</a>
+            <a href="javascript:logout()">Log out</a>
+            <h4 class="font-weight-normal text-center text-success" id="currentUser"></h4>
+            <h4 class="font-weight-normal text-center text-primary" id="leaderboard"></h4>
+            <h4 class="font-weight-normal text-center text-warning" id="users"></h4>
+        </div>
+        <span id="side-nav-button" onclick="openNav()">&#9776; Menu</span>
+        <textarea class="z-depth-1 form-control" id="geojson-output" placeholder="See edits in GeoJson." style="display: none;"></textarea>
         <div id="map-holder"></div>
-        <textarea class="z-depth-1 form-control" id="geojson-output" placeholder="See edits in GeoJson."></textarea>
-        <button onclick="geojsonOutput()" id="output-toggle" class="btn btn-warning">GeoJson output</button>
-    	<a id="download-link" href="data:;base64," download="geojson.json"><button class="btn btn-primary">Download GeoJson</button></a>
-        <button onclick="removeAllPaths()" id="removeAllLines" class="btn btn-danger">Delete all paths</button>
-        <img src="data/colorGuide.png" id="ratingSystem" alt="">
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+        <script src="editor.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
