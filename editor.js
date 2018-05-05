@@ -18,65 +18,68 @@ var credentials = {
 
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyDDMHu3ZW4CLbORmrXK-hHxI_DQ-nwyhWM",
-  authDomain: "geocfu-corfu-maps-90008.firebaseapp.com",
-  databaseURL: "https://geocfu-corfu-maps-90008.firebaseio.com",
-  projectId: "geocfu-corfu-maps-90008",
-  storageBucket: "geocfu-corfu-maps-90008.appspot.com",
-  messagingSenderId: "452451468709"
+    apiKey: "AIzaSyDDMHu3ZW4CLbORmrXK-hHxI_DQ-nwyhWM",
+    authDomain: "geocfu-corfu-maps-90008.firebaseapp.com",
+    databaseURL: "https://geocfu-corfu-maps-90008.firebaseio.com",
+    projectId: "geocfu-corfu-maps-90008",
+    storageBucket: "geocfu-corfu-maps-90008.appspot.com",
+    messagingSenderId: "452451468709"
 };
 firebase.initializeApp(config);
 
 firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    document.getElementById("login_div").style.display = "none";
-    document.getElementById("map-holder").style.display = "block";
-    document.getElementById("side-nav-button").style.display = "block";
-    document.getElementById("mySidenav").style.display = "block";
+    if (user) {
+        // User is signed in.
+        document.getElementById("login_div").style.display = "none";
+        document.getElementById("map-holder").style.display = "block";
+        document.getElementById("side-nav-button").style.display = "block";
+        document.getElementById("mySidenav").style.display = "block";
 
-    var user = firebase.auth().currentUser;
+        var user = firebase.auth().currentUser;
 
-    if(user != null){
-      credentials.Email = user.email;
-      credentials.Uid = user.uid;
-      loginFlag = true;
+        if(user != null){
+          credentials.Email = user.email;
+          credentials.Uid = user.uid;
+          loginFlag = true;
+        }
+
+        document.getElementById("currentUser").innerHTML ="Logged in as: " + credentials.Email + "<br><br>";
+        document.getElementById("users").innerHTML = null;
+
+        firebase.database().ref("Users paths/").on("child_added", function(data) {
+            document.getElementById("leaderboard").innerHTML ="Leaderboard<br>";
+            document.getElementById("users").innerHTML = document.getElementById("users").innerHTML +
+                                                        "Email: " + data.val().Email +
+                                                        "<br>Total Meters: " + data.val().totalMeters + "<br><br>";
+        });
     }
-
-    document.getElementById("currentUser").innerHTML ="Logged in as: " + credentials.Email + "<br><br>";
-    document.getElementById("users").innerHTML = null;
-
-    firebase.database().ref("Users paths/").on("child_added", function(data) {
-        document.getElementById("leaderboard").innerHTML ="Leaderboard<br>";
-        document.getElementById("users").innerHTML = document.getElementById("users").innerHTML +
-                                                    "Email: " + data.val().Email +
-                                                    "<br>Total Meters: " + data.val().totalMeters + "<br><br>";
-    });
-  } else {
-    // No user is signed in.
-    document.getElementById("login_div").style.display = "block";
-    document.getElementById("map-holder").style.display = "none";
-    document.getElementById("side-nav-button").style.display = "none";
-    document.getElementById("mySidenav").style.display = "none";
-  }
+    else {
+        // No user is signed in.
+        document.getElementById("login_div").style.display = "block";
+        document.getElementById("map-holder").style.display = "none";
+        document.getElementById("side-nav-button").style.display = "none";
+        document.getElementById("mySidenav").style.display = "none";
+        document.getElementById("geojson-output").style.display = "none";
+    }
 });
 
 function login() {
-  var userEmail = document.getElementById("email").value;
-  var userPass = document.getElementById("password").value;
+    var userEmail = document.getElementById("email").value;
+    var userPass = document.getElementById("password").value;
 
-  firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
-      window.alert("No account found, registering new account.");
-      firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        window.alert("Error : " + errorMessage);
-      });
-  });
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+        window.alert("No account found, registering new account.");
+        firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            window.alert("Error : " + errorMessage);
+        });
+    });
 }
 
 function logout() {
-  firebase.auth().signOut();
+    firebase.auth().signOut();
+    location.reload();
 }
 
 function init() {
@@ -172,7 +175,7 @@ function getDistance(path) {
 function getTotalPathsDistance() {
     var totalDistance = 0;
     map.data.forEach(function(feature) {
-        if (loginFlag == true) { // those are the predefined paths in number
+        if (loginFlag == true) {
             totalDistance = totalDistance + google.maps.geometry.spherical.computeLength(feature.getGeometry().getArray()) | 0;
         }
     });
