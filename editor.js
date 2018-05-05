@@ -43,14 +43,25 @@ firebase.auth().onAuthStateChanged(function(user) {
           loginFlag = true;
         }
 
-        document.getElementById("currentUser").innerHTML ="Logged in as: " + credentials.Email + "<br><br>";
+        document.getElementById("currentUser").innerHTML = "Logged in as: " + credentials.Email;
         document.getElementById("users").innerHTML = null;
 
+        var usersArray = [];
+        var usersEmailsAndMetersArray = [];
+
         firebase.database().ref("Users paths/").on("child_added", function(data) {
+            usersArray.push({'Email': data.val().Email, 'Meters': data.val().totalMeters});
+
+            usersArray.sort(function(a, b) {
+                return ((a.Meters > b.Meters) ? -1 : ((a.Meters == b.Meters) ? 0 : 1));
+            });
+
             document.getElementById("leaderboard").innerHTML ="Leaderboard<br>";
-            document.getElementById("users").innerHTML = document.getElementById("users").innerHTML +
-                                                        "Email: " + data.val().Email +
-                                                        "<br>Total Meters: " + data.val().totalMeters + "<br><br>";
+
+            for (var i = 0; i < usersArray.length; i++) {
+                usersEmailsAndMetersArray[i] = "Email: " + usersArray[i].Email + "<br>Total Meters: " +usersArray[i].Meters + "<br><br>";
+            }
+            document.getElementById("users").innerHTML = usersEmailsAndMetersArray;
         });
     }
     else {
@@ -489,7 +500,7 @@ function removeAllPaths() {
 }
 
 function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.width = "270px";
     document.getElementById("side-nav-button").style.visibility = "hidden";
 }
 
