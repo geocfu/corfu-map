@@ -449,9 +449,10 @@ function addToDatabase(json, meters) {
 function refreshGeoJsonFromData() {
     map.data.toGeoJson(function(geoJson) {
         geoJsonOutput.value = JSON.stringify(geoJson);
-        refreshDownloadLinkFromGeoJson();
+        //refreshDownloadLinkFromGeoJson();
     });
 }
+
 // Refresh download link.
 function refreshDownloadLinkFromGeoJson() {
     downloadLink.href = "data:;base64," + btoa(geoJsonOutput.value);

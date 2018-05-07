@@ -76,6 +76,9 @@ body {
     width: 95%;
     margin-left:9px;
 }
+#download-link {
+    display: none;
+}
 /*tablet and up*/
 @media (min-width: 576px) {
     .card {
@@ -84,6 +87,9 @@ body {
         width: 100%;
         max-width: 600px;
         margin: auto;
+    }
+    #download-link {
+        display: block;
     }
 }
 .form-control {
